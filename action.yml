@@ -1,0 +1,30 @@
+name: 'Extract Artifact'
+description: 'Download and extract a GitHub Actions artifact. Supports nested artifact.tar produced by upload-artifact@v4.'
+author: 'yifen9'
+license: 'MIT'
+
+inputs:
+  name:
+    description: 'Name of the artifact to download and extract.'
+    required: true
+  path:
+    description: 'Directory to extract into.'
+    required: false
+    default: 'build'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Install Prerequisites
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y jq unzip tar curl
+
+    - name: Download and Extract artifact
+      shell: bash
+      run: |
+        chmod +x "$GITHUB_ACTION_PATH/entrypoint.sh"
+        "$GITHUB_ACTION_PATH/entrypoint.sh" "${{ inputs.name }}" "${{ inputs.path }}"
