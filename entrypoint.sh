@@ -8,10 +8,11 @@ TOKEN="${GITHUB_TOKEN:?GITHUB_TOKEN is required}"
 
 echo "[INFO] Fetching artifact ID for '$ART_NAME'..."
 ART_ID=$(curl -s -H "Authorization: Bearer $TOKEN" \
-                -H "Accept: application/vnd.github+json" \
-                "$API" \
+               -H "Accept: application/vnd.github+json" \
+               "$API" \
          | jq -r --arg NAME "$ART_NAME" \
-             '.artifacts[] | select(.name==$NAME) | .id')
+             '.artifacts[] | select(.name==$NAME) | .id' \
+         | head -n1)
 
 if [[ -z "$ART_ID" || "$ART_ID" == "null" ]]; then
   echo "::error::Artifact '$ART_NAME' not found"
@@ -20,9 +21,9 @@ fi
 
 echo "[INFO] Downloading artifact #$ART_ID..."
 curl -L -H "Authorization: Bearer $TOKEN" \
-       -H "Accept: application/vnd.github+json" \
-       "$API/$ART_ID/zip" \
-     --output artifact.zip
+     -H "Accept: application/vnd.github+json" \
+     "${API}/${ART_ID}/zip" \
+  --output artifact.zip
 
 echo "[INFO] Unzipping to '$TARGET_DIR'..."
 mkdir -p "$TARGET_DIR"
