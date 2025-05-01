@@ -1,4 +1,4 @@
-# artifact-extractor
+# extract-artifact
 
 A GitHub Action to download and extract a GitHub Actions artifact.  
 Supports nested `artifact.tar` produced by `upload-artifact@v4`.
@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Extract Pages artifact
-        uses: yifen9/artifact-extractor@v1
+        uses: yifen9/extract-artifact@v1
         with:
           name: github-pages
           path: build
