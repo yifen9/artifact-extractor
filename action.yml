@@ -2,6 +2,7 @@ name: 'Extract Artifact'
 description: 'Download and extract a GitHub Actions artifact. Supports nested artifact.tar produced by upload-artifact@v4.'
 author: 'yifen9'
 license: 'MIT'
+icon: arrow-down
 
 inputs:
   name:
