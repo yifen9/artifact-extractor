@@ -31,7 +31,7 @@ unzip -q artifact.zip -d "$TARGET_DIR"
 
 if [[ -f "$TARGET_DIR/artifact.tar" ]]; then
   echo "[INFO] Extracting nested artifact.tar..."
-  tar -xzf "$TARGET_DIR/artifact.tar" -C "$TARGET_DIR"
+  tar -xf "$TARGET_DIR/artifact.tar" -C "$TARGET_DIR"
   rm "$TARGET_DIR/artifact.tar"
 fi
 
